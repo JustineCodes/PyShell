@@ -40,10 +40,13 @@ while True:
     if event == "OK" or event == sg.WIN_CLOSED:
         break
 
-while True:
+# while True:
     event, values = window.read()
     if event == "Run PowerShell Script" or event == sg.WIN_CLOSED:
-        subprocess.run(["C:/Users/simpl/OneDrive/Documents/GitHub/PyShell/powershell/main.ps1"])
+        p = subprocess.Popen(["powershell.exe",
+        "C:/Users/simpl/OneDrive/Documents/GitHub/PyShell/powershell/main.ps1"],
+        stdout=sys.stdout)
+        p.communicate()
         break
 
 window.close()
