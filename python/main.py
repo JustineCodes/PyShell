@@ -10,7 +10,12 @@ Getting information from;
     http://www.PySimpleGUI.org
 
     
+I can grab an event from the user in a Python GUI and use it to trigger the PowerShell script.
+    Nice step in the proccess.
 
+Next up
+    How to take stdin from the Python GUI and pass it to the PowerShell script.
+    
 '''
 
 # # hello_world.py
