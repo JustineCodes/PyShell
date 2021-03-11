@@ -32,28 +32,41 @@ import PySimpleGUI as sg
 import subprocess
 import sys
 
-layout = [[sg.Text("Hello from PySimpleGUI")], [sg.Button("OK")], [sg.Button("Run PowerShell Script")]]
+sg.theme('BrightColors')
+
+
+layout = [[sg.Text("PyShell")],
+         [sg.Button("type Something"), sg.Input(key='-IN-')],
+         [sg.Text(size=(12,1), key='-OUTPUT-')],
+         [(sg.Button("reset"))],
+         [sg.Button("Run PowerShell Script")] ]
 
 # Create the window
-window = sg.Window("Demo", layout)
+window = sg.Window("PyShell", layout)
 
 # Create an event loop
 while True:
     event, values = window.read()
+    print(event, values)
     # End program if user closes window or
     # presses the OK button
-    if event == "OK" or event == sg.WIN_CLOSED:
-        break
 
-# while True:
-    event, values = window.read()
-    if event == "Run PowerShell Script" or event == sg.WIN_CLOSED:
-        p = subprocess.Popen(["powershell.exe",
+    if event == "Run PowerShell Script": # or event == sg.WIN_CLOSED:
+        p = subprocess.run(["powershell.exe",
         "C:/Users/simpl/OneDrive/Documents/GitHub/PyShell/powershell/main.ps1"],
         stdout=sys.stdout)
-        p.communicate()
-        break
 
-window.close()
+    if event == "type Something":
+        window['-OUTPUT-'].update(values['-IN-'])
+
+    if event == "reset":
+        window['-OUTPUT-']('')
+
+    if event == sg.WIN_CLOSED or event == 'Exit': # This closes the GUI. Adding here keeps it open.
+        break
+ 
+    
+
+
 
 
